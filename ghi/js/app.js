@@ -1,4 +1,4 @@
-function createCard(name, description, pictureUrl, startDate, endDate) {
+function createCard(name, subtitle, description, pictureUrl, startDate, endDate) {
     return `
     <div class="col-sm-4">
 
@@ -6,6 +6,7 @@ function createCard(name, description, pictureUrl, startDate, endDate) {
         <img src="${pictureUrl}" class="card-img-top">
         <div class="card-body">
           <h5 class="card-title">${name}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">${subtitle}</h6>
           <p class="card-text">${description}</p>
         </div>
         <div class="card-footer">
@@ -33,12 +34,12 @@ function createCard(name, description, pictureUrl, startDate, endDate) {
             if (detailResponse.ok) {
                 const details = await detailResponse.json();
                 const name = details.conference.name;
-                console.log(details);
+                const subtitle = details.conference.location.name;
                 const description = details.conference.description;
                 const pictureUrl = details.conference.location.picture_url;
                 const startDate = new Date(details.conference.starts).toLocaleDateString()
                 const endDate = new Date(details.conference.ends).toLocaleDateString()
-                const html = createCard(name, description, pictureUrl, startDate, endDate);
+                const html = createCard(name, subtitle, description, pictureUrl, startDate, endDate);
                 const row = document.querySelector('.row');
                 row.innerHTML += html;
           }
