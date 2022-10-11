@@ -1,4 +1,4 @@
-function createCard(name, description, pictureUrl) {
+function createCard(name, description, pictureUrl, startDate, endDate) {
     return `
     <div class="col-sm-4">
 
@@ -8,6 +8,9 @@ function createCard(name, description, pictureUrl) {
           <h5 class="card-title">${name}</h5>
           <p class="card-text">${description}</p>
         </div>
+        <div class="card-footer">
+        ${startDate} - ${endDate}
+      </div>
       </div>
       </div>
     `;
@@ -24,7 +27,6 @@ function createCard(name, description, pictureUrl) {
         // Figure out what to do when the response is bad
       } else {
         const data = await response.json();
-        console.log(data.conferences)
         for (let conference of data.conferences) {
             const detailUrl = `http://localhost:8000${conference.href}`;
             const detailResponse = await fetch(detailUrl);
@@ -34,7 +36,9 @@ function createCard(name, description, pictureUrl) {
                 console.log(details);
                 const description = details.conference.description;
                 const pictureUrl = details.conference.location.picture_url;
-                const html = createCard(name, description, pictureUrl);
+                const startDate = new Date(details.conference.starts).toLocaleDateString()
+                const endDate = new Date(details.conference.ends).toLocaleDateString()
+                const html = createCard(name, description, pictureUrl, startDate, endDate);
                 const row = document.querySelector('.row');
                 row.innerHTML += html;
           }
