@@ -1,3 +1,14 @@
+var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+function alert(message, type) {
+  var wrapper = document.createElement('div')
+  wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+
+  alertPlaceholder.append(wrapper)
+}
+
+
+
 function createCard(name, subtitle, description, pictureUrl, startDate, endDate) {
     return `
     <div class="col-sm-4">
@@ -25,7 +36,8 @@ function createCard(name, subtitle, description, pictureUrl, startDate, endDate)
       const response = await fetch(url);
 
       if (!response.ok) {
-        // Figure out what to do when the response is bad
+        alert('Response not ok!', 'danger');
+        throw new Error('Response not ok');
       } else {
         const data = await response.json();
         for (let conference of data.conferences) {
@@ -47,6 +59,7 @@ function createCard(name, subtitle, description, pictureUrl, startDate, endDate)
 
       }
     } catch (e) {
+        alert('Error', 'warning');
         console.error('error', e)
     }
 
