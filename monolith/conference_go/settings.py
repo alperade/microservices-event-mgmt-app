@@ -64,6 +64,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:3001",
 ]
 
 ROOT_URLCONF = "conference_go.urls"
@@ -90,7 +91,7 @@ DJWTO_MODE = "TWO-COOKIES"
 
 DJWTO_ACCESS_TOKEN_LIFETIME = None
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://localhost:3001"]
 
 CORS_ALLOW_CREDENTIALS = True
 
