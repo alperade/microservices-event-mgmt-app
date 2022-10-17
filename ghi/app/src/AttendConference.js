@@ -78,6 +78,13 @@ class AttendConference extends React.Component {
       }
 
     render() {
+        let successAlertClass = "alert alert-success d-none mb-0"
+        let formClass = "none"
+        if (this.state.submit === true) {
+            successAlertClass = "alert alert-success mb-0"
+            formClass = "d-none"
+        }
+
         let spinnerClasses = 'd-flex justify-content-center mb-3';
         let dropdownClasses = 'form-select d-none';
         if (this.state.conferences.length > 0) {
@@ -93,7 +100,7 @@ class AttendConference extends React.Component {
         <div className="col">
           <div className="card shadow">
             <div className="card-body">
-              <form onSubmit={this.handleSubmit} id="create-attendee-form">
+              <form className={formClass} onSubmit={this.handleSubmit} id="create-attendee-form">
                 <h1 className="card-title">It's Conference Time!</h1>
                 <p className="mb-3">
                   Please choose which conference
@@ -135,9 +142,9 @@ class AttendConference extends React.Component {
                 </div>
                 <button className="btn btn-lg btn-primary">I'm going!</button>
               </form>
-              <div className="alert alert-success d-none mb-0" id="success-message">
-                Congratulations! You're all signed up!
-              </div>
+              <div className={successAlertClass} id="success-message">
+                        Congratulations! You're all signed up!
+                </div>
             </div>
           </div>
         </div>
