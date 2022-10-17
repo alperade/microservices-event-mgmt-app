@@ -120,31 +120,31 @@ class ConferenceForm extends React.Component {
             <h1>Create a new conference</h1>
             <form onSubmit={this.handleSubmit} id="create-conference-form">
               <div className="form-floating mb-3">
-                <input onChange={this.handleNameChange} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
+                <input onChange={this.handleNameChange} placeholder="Name" required type="text" value={this.state.name} name="name" id="name" className="form-control" />
                 <label htmlFor="name">Name</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleStartsChange} placeholder="Start date" required type="date" name="starts" id="starts" className="form-control" />
+                <input onChange={this.handleStartsChange} placeholder="Start date" required type="date" value={this.state.starts} name="starts" id="starts" className="form-control" />
                 <label htmlFor="starts">Starts</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleEndsChange} placeholder="End date" required type="date" name="ends" id="ends" className="form-control" />
+                <input onChange={this.handleEndsChange} placeholder="End date" required type="date" value={this.state.ends} name="ends" id="ends" className="form-control" />
                 <label htmlFor="ends">Ends</label>
               </div>
               <div className="mb-3">
                 <label htmlFor="description" className="form-label">Description</label>
-                <textarea onChange={this.handleDescriptionChange} className="form-control" required id="description" name="description" rows="3"></textarea>
+                <textarea onChange={this.handleDescriptionChange} className="form-control" required value={this.state.description} id="description" name="description" rows="3"></textarea>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleMaxPresentationsChange} placeholder="Max Presentations" required type="number" name="max_presentations" id="max_presentations" className="form-control" />
+                <input onChange={this.handleMaxPresentationsChange} placeholder="Max Presentations" required type="number" value={this.state.maxPresentations} name="max_presentations" id="max_presentations" className="form-control" />
                 <label htmlFor="max_presentations">Maximum presentations</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleMaxAttendeesChange} placeholder="Max Attendees" required type="number" name="max_attendees" id="max_attendees" className="form-control" />
+                <input onChange={this.handleMaxAttendeesChange} placeholder="Max Attendees" required type="number" value={this.state.maxAttendees} name="max_attendees" id="max_attendees" className="form-control" />
                 <label htmlFor="max_attendees">Maximum attendees</label>
               </div>
               <div className="mb-3">
-                <select onChange={this.handleLocationChange} required id="location" name="location" className="form-select">
+                <select onChange={this.handleLocationChange} required id="location" value={this.state.location} name="location" className="form-select">
                   <option value="">Choose a location</option>
                   {this.state.locations.map(location => {
                       return (
