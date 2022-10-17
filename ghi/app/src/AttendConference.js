@@ -7,6 +7,7 @@ class AttendConference extends React.Component {
             conferences: [],
             name: '',
             email: '',
+            submit: false,
           };
         this.handleConferenceChange = this.handleConferenceChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -23,9 +24,9 @@ class AttendConference extends React.Component {
 
     async handleSubmit(event) {
         event.preventDefault();
-        console.log("asdasd")
         const data = {...this.state};
         delete data.conferences;
+        delete data.submit
         console.log(data);
 
         const attendeeUrl = 'http://localhost:8001/api/attendees/';
@@ -46,6 +47,7 @@ class AttendConference extends React.Component {
                 name: '',
                 email: '',
             };
+            this.state.submit = true
             this.setState(cleared);
           }
       }
@@ -112,7 +114,7 @@ class AttendConference extends React.Component {
                   </div>
                 </div>
                 <div className="mb-3">
-                  <select name="conference" onChange={this.handleConferenceChange} id="conference" className={dropdownClasses} required>
+                  <select name="conference" onChange={this.handleConferenceChange} id="conference" value={this.state.conference} className={dropdownClasses} required>
                     <option value="">Choose a conference</option>
                     {this.state.conferences.map(conference => {
                       return (
