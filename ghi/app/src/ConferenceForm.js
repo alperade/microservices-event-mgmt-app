@@ -1,158 +1,150 @@
 import React from 'react';
 
 class ConferenceForm extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            name: '',
-            starts: '',
-            ends: '',
-            description: '',
-            maxPresentations: '',
-            maxAttendees: '',
-            locations: []
-          };
-        this.handleNameChange = this.handleNameChange.bind(this);
-        this.handleStartsChange = this.handleStartsChange.bind(this);
-        this.handleEndsChange = this.handleEndsChange.bind(this);
-        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-        this.handleMaxPresentationsChange = this.handleMaxPresentationsChange.bind(this);
-        this.handleMaxAttendeesChange = this.handleMaxAttendeesChange.bind(this);
-        this.handleLocationChange = this.handleLocationChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      starts: '',
+      ends: '',
+      description: '',
+      max_presentations: '',
+      max_attendees: '',
+      location: '',
+      locations: [],
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChangeDescription = this.handleChangeDescription.bind(this);
+    this.handleChangeEnds = this.handleChangeEnds.bind(this);
+    this.handleChangeLocation = this.handleChangeLocation.bind(this);
+    this.handleChangeMaxAttendees = this.handleChangeMaxAttendees.bind(this);
+    this.handleChangeMaxPresentations = this.handleChangeMaxPresentations.bind(this);
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeStarts = this.handleChangeStarts.bind(this);
+  }
 
     // To have one handleInput, use the following code;
     // handleInput(event) {
         //const name = event.target.name;
         //const value = event.target.value;
         //this.setState({[name]: value})
-      //}
+    //}
 
-    async handleSubmit(event) {
-        event.preventDefault();
-        const data = {...this.state};
-        data.max_presentations = data.maxPresentations;
-        data.max_attendees = data.maxAttendees;
-        delete data.maxPresentations;
-        delete data.maxAttendees;
-        delete data.locations;
-        console.log(data);
+  async componentDidMount() {
+    const url = 'http://localhost:8000/api/locations/';
 
-        const conferenceUrl = 'http://localhost:8000/api/conferences/';
-        const fetchConfig = {
-            method: "post",
-            body: JSON.stringify(data),
-            headers: {
-            'Content-Type': 'application/json',
-            },
-        };
-        const response = await fetch(conferenceUrl, fetchConfig);
-        if (response.ok) {
-            const newConference = await response.json();
-            console.log(newConference);
+    const response = await fetch(url);
 
-            const cleared = {
-                name: '',
-                starts: '',
-                ends: '',
-                description: '',
-                maxPresentations: '',
-                maxAttendees: '',
-                location: ''
-            };
-            this.setState(cleared);
-          }
-      }
+    if (response.ok) {
+      const data = await response.json();
+      this.setState({ locations: data.locations });
+    }
+  }
 
-    handleNameChange(event) {
-        const value = event.target.value;
-        this.setState({name: value})
-      }
+  async handleSubmit(event) {
+    event.preventDefault();
+    const data = {...this.state};
+    delete data.locations;
 
-    handleStartsChange(event) {
-        const value = event.target.value;
-        this.setState({starts: value})
-      }
+    const locationUrl = 'http://localhost:8000/api/conferences/';
+    const fetchConfig = {
+      method: "post",
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const response = await fetch(locationUrl, fetchConfig);
+    if (response.ok) {
+      const newConference = await response.json();
+      console.log(newConference);
+      this.setState({
+        name: '',
+        starts: '',
+        ends: '',
+        description: '',
+        max_presentations: '',
+        max_attendees: '',
+        location: '',
+      });
+    }
+  }
 
-    handleEndsChange(event) {
-        const value = event.target.value;
-        this.setState({ends: value})
-      }
+  handleChangeName(event) {
+    const value = event.target.value;
+    this.setState({ name: value });
+  }
 
-    handleDescriptionChange(event) {
-        const value = event.target.value;
-        this.setState({description: value})
-      }
+  handleChangeStarts(event) {
+    const value = event.target.value;
+    this.setState({ starts: value });
+  }
 
-    handleMaxPresentationsChange(event) {
-        const value = event.target.value;
-        this.setState({maxPresentations: value})
-      }
+  handleChangeEnds(event) {
+    const value = event.target.value;
+    this.setState({ ends: value });
+  }
 
-    handleMaxAttendeesChange(event) {
-        const value = event.target.value;
-        this.setState({maxAttendees: value})
-      }
+  handleChangeDescription(event) {
+    const value = event.target.value;
+    this.setState({ description: value });
+  }
 
-    handleLocationChange(event) {
-        const value = event.target.value;
-        this.setState({location: value})
-      }
+  handleChangeMaxPresentations(event) {
+    const value = event.target.value;
+    this.setState({ max_presentations: value });
+  }
 
+  handleChangeMaxAttendees(event) {
+    const value = event.target.value;
+    this.setState({ max_attendees: value });
+  }
 
-    async componentDidMount() {
-        const url = 'http://localhost:8000/api/locations/';
+  handleChangeLocation(event) {
+    const value = event.target.value;
+    this.setState({ location: value });
+  }
 
-        const response = await fetch(url);
-
-        if (response.ok) {
-          const data = await response.json();
-          this.setState({locations: data.locations});
-        }
-      }
-
-    render() {
+  render() {
     return (
-        <div className="row">
+      <div className="row">
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
             <h1>Create a new conference</h1>
             <form onSubmit={this.handleSubmit} id="create-conference-form">
               <div className="form-floating mb-3">
-                <input onChange={this.handleNameChange} placeholder="Name" required type="text" value={this.state.name} name="name" id="name" className="form-control" />
+                <input onChange={this.handleChangeName} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
                 <label htmlFor="name">Name</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleStartsChange} placeholder="Start date" required type="date" value={this.state.starts} name="starts" id="starts" className="form-control" />
+                <input onChange={this.handleChangeStarts} placeholder="Starts" required type="date" name="starts" id="starts" className="form-control" />
                 <label htmlFor="starts">Starts</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleEndsChange} placeholder="End date" required type="date" value={this.state.ends} name="ends" id="ends" className="form-control" />
+                <input onChange={this.handleChangeEnds} placeholder="Ends" required type="date" name="ends" id="ends" className="form-control" />
                 <label htmlFor="ends">Ends</label>
               </div>
               <div className="mb-3">
-                <label htmlFor="description" className="form-label">Description</label>
-                <textarea onChange={this.handleDescriptionChange} className="form-control" required value={this.state.description} id="description" name="description" rows="3"></textarea>
+                <label htmlFor="description">Description</label>
+                <textarea onChange={this.handleChangeDescription} className="form-control" id="description" rows="3" name="description" className="form-control"></textarea>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleMaxPresentationsChange} placeholder="Max Presentations" required type="number" value={this.state.maxPresentations} name="max_presentations" id="max_presentations" className="form-control" />
+                <input onChange={this.handleChangeMaxPresentations} placeholder="Maximum presentations" required type="number" name="max_presentations" id="max_presentations" className="form-control" />
                 <label htmlFor="max_presentations">Maximum presentations</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleMaxAttendeesChange} placeholder="Max Attendees" required type="number" value={this.state.maxAttendees} name="max_attendees" id="max_attendees" className="form-control" />
+                <input onChange={this.handleChangeMaxAttendees} placeholder="Maximum attendees" required type="number" name="max_attendees" id="max_attendees" className="form-control" />
                 <label htmlFor="max_attendees">Maximum attendees</label>
               </div>
               <div className="mb-3">
-                <select onChange={this.handleLocationChange} required id="location" value={this.state.location} name="location" className="form-select">
+                <select onChange={this.handleChangeLocation} required name="location" id="location" className="form-select">
                   <option value="">Choose a location</option>
                   {this.state.locations.map(location => {
-                      return (
-                      <option key={location.href} value={location.id}>
-                          {location.name}
-                      </option>
-                      );
-                    })}
+                    return (
+                      <option key={location.id} value={location.id}>{location.name}</option>
+                    )
+                  })}
                 </select>
               </div>
               <button className="btn btn-primary">Create</button>
