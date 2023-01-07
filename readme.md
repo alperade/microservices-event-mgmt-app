@@ -3,9 +3,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/alperade/microservices-event-mgmt-app">
-    <img src="/ghi/src/media/logo.png" alt="Logo" width="300" height="90">
-  </a>
   <h3 align="center">ConferenceGo</h3>
 </div>
 
@@ -39,7 +36,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://bonjuurreact.azurewebsites.net/)
+![Product Name Screen Shot][product-screenshot]
 
 An API-based SPA to create and manage events using Django REST and React frameworks with Postgres.
 
@@ -48,12 +45,12 @@ An API-based SPA to create and manage events using Django REST and React framewo
 
 ### Built With
 
-* FastAPI
+* Django
 * ReactJS
-* MongoDB
-* MS Azure
+* PostgreSQL
 * Bootstrap
-* React-Redux
+* RabbitMQ
+* Docker
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -85,7 +82,7 @@ To get a local copy up and running follow these steps.
    ```sh
    git clone https://github.com/alperade/microservices-event-mgmt-app.git
    ```
-2. Sign up to Atlas Mongo and create a cluster
+2. Sign up to Open Weather and Pexel and get API keys
 
 3. Create an `.env` file
    ```py
@@ -110,10 +107,7 @@ To get a local copy up and running follow these steps.
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Integrate MS Graph API for sending 'forgot password' emails - https://developer.microsoft.com/en-us/graph/quick-start
-- [ ] Integrate Stripe API for payments
-- [ ] Link to custom domain
-- [ ] Stop subscription page (turn is_active to false)
+- [ ] Create user model, add user authorization and authentication
 - [ ] Update Readme Roadmap
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -130,4 +124,4 @@ Project Link: [https://github.com/alperade/microservices-event-mgmt-app](https:/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: /ghi/src/media/screenshot.png
+[product-screenshot]: /screenshot.png
